@@ -1,5 +1,12 @@
 from flask import Flask
+from pyVim.connect import SmartConnect,SmartConnectNoSSL 
+from datetime import datetime, timedelta
+from pyVmomi import vim
+import ssl
+import os
+#import getpass
 app = Flask(__name__)
+
 
 @app.route('/')
 def hello_world():
