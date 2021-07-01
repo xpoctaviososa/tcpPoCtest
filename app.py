@@ -12,9 +12,14 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
+@app.route('/test')
+def hello_test():
+    return 'Second route'
+
 @app.route('/mlc')
 def hello_mlc():
     return vcenter_health(os.environ['api_host'])
+
 
 def vcenter_health(host):
     context = ssl._create_unverified_context()
@@ -45,7 +50,7 @@ def vcenter_health(host):
                    i=i+1
             list.append(i)
             frontend[ds.name]=i
-    return frontend
+    return str(frontend)
     
 # Start Flask Process
 if __name__ == '__main__':
