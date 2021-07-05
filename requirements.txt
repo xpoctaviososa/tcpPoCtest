@@ -5,4 +5,5 @@ git+https://github.com/vmware/vsphere-automation-sdk-python.git
 humanize
 cryptography
 pyvim
+pandas
 #ssl
