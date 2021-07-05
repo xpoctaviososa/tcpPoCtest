@@ -28,7 +28,7 @@ def vcenter_connection(host):
     session = requests.session()
     # Disable cert verification for demo purpose. 
     # This is not recommended in a production environment.
-    session.verify = True
+    session.verify = False
     
     vsphere_client = create_vsphere_client(server=host, username=os.environ['api_user'], password=os.environ['api_pwd'], session=session)
     lhost = vsphere_client.vcenter.Host.list()
