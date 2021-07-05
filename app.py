@@ -10,16 +10,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'Technical Computing Platform PoC'
 
-@app.route('/test')
-def hello_test():
-    return 'Second route'
+@app.route('/hostConnection')
+def hostConnectionPrint():
+    return vcenter_connection()
 
-@app.route('/mlc')
-def hello_mlc():
+@app.route('/dataStores')
+def dataStoresPrint():
     return vcenter_health(os.environ['api_host'])
 
+
+def vcenter_connection():
+    return 'Printed host connections'
 
 def vcenter_health(host):
     context = ssl._create_unverified_context()
@@ -50,7 +53,20 @@ def vcenter_health(host):
                    i=i+1
             list.append(i)
             frontend[ds.name]=i
-    return str(frontend)
+    
+    fe=dict(frontend)
+    final_keys=[]
+    final_values=[]
+    final_numbers=[]
+    for key in sorted(fe):
+        final_keys.append(key)
+        final_values.append(fe[key])
+    final_dict=dict(zip(final_keys, final_values+ [None] * (len(final_keys) - len (final_values)) ))  
+    frontend_html=pd.DataFrame(final_dict,["VMs"]).transpose().to_html()
+
+    return frontend_html
+    #return str(frontend)
+    
     
 # Start Flask Process
 if __name__ == '__main__':
