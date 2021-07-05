@@ -1,5 +1,5 @@
 Flask
-#suds
+suds
 pyvmomi
 git+https://github.com/vmware/vsphere-automation-sdk-python.git
 humanize
