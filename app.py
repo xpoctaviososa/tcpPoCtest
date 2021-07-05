@@ -41,7 +41,7 @@ def vcenter_connection(host):
     data={'HOST': final_keys, 'STATUS' : final_values}
 
     frontend=pd.DataFrame(data,columns=["HOST","STATUS"])
-    return frontend
+    return frontend.to_html()
 
 def vcenter_health(host):
     context = ssl._create_unverified_context()
@@ -84,7 +84,6 @@ def vcenter_health(host):
     frontend_html=pd.DataFrame(final_dict,["VMs"]).transpose().to_html()
 
     return frontend_html
-    #return str(frontend)
     
     
 # Start Flask Process
