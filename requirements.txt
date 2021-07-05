@@ -6,6 +6,6 @@ humanize
 cryptography
 pyvim
 pandas
-#ssl
+ssl
 requests
 urllib3
