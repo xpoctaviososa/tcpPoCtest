@@ -4,9 +4,11 @@ from datetime import datetime, timedelta
 from pyVmomi import vim
 import ssl
 import os
-#import getpass
 import pandas as pd
 app = Flask(__name__)
+import requests
+import urllib3
+from vmware.vapi.vsphere.client import create_vsphere_client
 
 
 @app.route('/')
@@ -15,15 +17,26 @@ def hello_world():
 
 @app.route('/hostConnection')
 def hostConnectionPrint():
-    return vcenter_connection()
+    return vcenter_connection(os.environ['api_host'])
 
 @app.route('/dataStores')
 def dataStoresPrint():
     return vcenter_health(os.environ['api_host'])
 
 
-def vcenter_connection():
-    return 'Printed host connections'
+def vcenter_connection(host):
+    vsphere_client = create_vsphere_client(server=host, username=os.environ['api_user'], password=os.environ['api_pwd'], session=session)
+    lhost = vsphere_client.vcenter.Host.list()
+    final_keys=[]
+    final_values=[]
+    for item in lhost:
+        final_keys.append(item.name)
+        final_values.append(item.connection_state)
+    #final_dict=dict(zip(final_keys, final_values+ [None] * (len(final_keys) - len (final_values)) ))  
+    data={'HOST': final_keys, 'STATUS' : final_values}
+
+    frontend=pd.DataFrame(data,columns=["HOST","STATUS"])
+    return frontend
 
 def vcenter_health(host):
     context = ssl._create_unverified_context()
