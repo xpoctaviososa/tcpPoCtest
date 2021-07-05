@@ -5,6 +5,7 @@ from pyVmomi import vim
 import ssl
 import os
 #import getpass
+import pandas as pd
 app = Flask(__name__)
 
 
