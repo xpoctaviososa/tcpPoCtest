@@ -7,3 +7,5 @@ cryptography
 pyvim
 pandas
 #ssl
+requests
+urllib3
