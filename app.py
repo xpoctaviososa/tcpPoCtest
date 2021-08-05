@@ -62,7 +62,7 @@ def vcenter_health(host):
 
     list=[]
     frontend={}
-    for ds in hosts[1].datastore:
+    for ds in hosts[0].datastore:
 
         if ("RGFX" in ds.name):
             frontend[ds.name]={}
