@@ -57,12 +57,12 @@ def vcenter_health(host):
         data.append(child)
     #data[0].child
     hosts=[]
-    for host in data[0].childEntity:
+    for host in data[1].childEntity:
         hosts.append(host)
 
     list=[]
     frontend={}
-    for ds in hosts[0].datastore:
+    for ds in hosts[1].datastore:
 
         if ("RGFX" in ds.name):
             frontend[ds.name]={}
